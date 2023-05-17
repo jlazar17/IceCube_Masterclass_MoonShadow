@@ -16,6 +16,9 @@ import datetime as dt
 #       10-14-1582 never occurred. Python datetime objects will produce incorrect
 #       time deltas if one date is from before 10-15-1582.
 
+def mjd_to_datetime(mjd):
+    return jd_to_datetime(mjd_to_jd(mjd))
+
 def mjd_to_jd(mjd):
     """
     Convert Modified Julian Day to Julian Day.
