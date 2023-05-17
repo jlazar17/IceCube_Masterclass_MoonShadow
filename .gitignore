@@ -1,2 +1,2 @@
-output/*
 __pycache__
+submit_icecube_muon.sbatch
