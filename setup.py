@@ -64,5 +64,5 @@ setup(
     packages=find_packages(),
     install_requires=INSTALL_REQUIRES,
     setup_requires=["setuptools>=34.4.0"],
-    package_data={"analysis": ["data/*.hdf5", "models/*.dat", "xsec/*.h5", "xsec/.dat"]},
+    #package_data={"": ["data/*.hdf5", "models/*.dat", "xsec/*.h5", "xsec/.dat"]},
 )
