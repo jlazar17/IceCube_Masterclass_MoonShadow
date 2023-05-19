@@ -1,0 +1,6 @@
+pyorbital @ git+https://github.com/jlazar17/pyorbital.git
+awkward
+healpy
+matplotlib
+numpy
+tqdm
