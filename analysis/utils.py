@@ -8,5 +8,5 @@ def is_floatable(v):
     try:
         float(v)
         return True
-    except ValueError:
+    except:
         return False
