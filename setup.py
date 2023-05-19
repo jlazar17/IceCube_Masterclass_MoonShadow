@@ -2,7 +2,7 @@ import io
 import os
 from setuptools import setup, find_packages
 
-NAME = "moonshadow"
+NAME = "analysis"
 DESCRIPTION = (
     "ffdsafsadfas"
 )
