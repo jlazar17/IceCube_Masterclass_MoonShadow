@@ -32,7 +32,7 @@ class DataReader:
         self._azimuth = None
         self._direction = None
         self._time = None
-        self._photon_info = ak.from_parqet(filename)
+        self._photon_info = ak.from_parquet(filename)
         self._events = read_events(filename)
         self._index = 0
         
