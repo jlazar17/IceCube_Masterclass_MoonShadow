@@ -2,13 +2,13 @@ import io
 import os
 from setuptools import setup, find_packages
 
-NAME = "charon"
+NAME = "MoonShadow"
 DESCRIPTION = (
-    "Charon: A package for neutrino flux generation from WIMP annihilation/decay"
+    "ffdsafsadfas"
 )
-MAINTAINER = "Qinrui Liu"
-MAINTAINER_EMAIL = "qliu@icecube.wisc.edu"
-URL = "https://github.com/IceCubeOpenSource/DMFlux"
+MAINTAINER = "Jeff Lazar"
+MAINTAINER_EMAIL = "jlazar@icecube.wisc.edu"
+URL = "https://github.com/jlazar17/IceCube_Masterclass_MoonShadow"
 LICENSE = "MIT"
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -55,7 +55,6 @@ setup(
         "Topic :: Scientific/Engineering",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
@@ -65,5 +64,5 @@ setup(
     packages=find_packages(),
     install_requires=INSTALL_REQUIRES,
     setup_requires=["setuptools>=34.4.0"],
-    package_data={"charon": ["data/*.hdf5", "models/*.dat", "xsec/*.h5", "xsec/.dat"]},
+    package_data={"analysis": ["data/*.hdf5", "models/*.dat", "xsec/*.h5", "xsec/.dat"]},
 )
