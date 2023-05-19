@@ -7,7 +7,7 @@ offset_x = -5.87082946
 offset_y = 2.51860853
 offset_z = 1971.9757655
 
-def plot_interactive_event(event, human_zenith, human_azimuth, show_truth=False):
+def plot_interactive_event(event, human_zenith, human_azimuth, field='mc_truth', show_truth=False):
 
     total_x = event.photons.sensor_pos_x.to_numpy() + offset_x
     total_y = event.photons.sensor_pos_y.to_numpy() + offset_y
@@ -54,7 +54,7 @@ def plot_interactive_event(event, human_zenith, human_azimuth, show_truth=False)
 
     # true direction
     if show_truth:
-      true_dir, true_arrows_trace = generate_directional_vector(event.mc_truth.initial_state_zenith, event.mc_truth.initial_state_azimuth, cog_point, color='red', name='Truth')
+      true_dir, true_arrows_trace = generate_directional_vector(event[field].initial_state_zenith, event[field].initial_state_azimuth, cog_point, color='red', name='Truth')
       fig = go.FigureWidget(data=[pts, true_dir, true_arrows_trace, human_dir, human_arrows], layout=layout)
     else:
       fig = go.FigureWidget(data=[pts, human_dir, human_arrows], layout=layout)
