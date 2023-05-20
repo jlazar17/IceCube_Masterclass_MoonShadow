@@ -34,7 +34,18 @@ class DataReader:
         self._time = None
         self._photon_info = ak.from_parquet(filename)
         self._events = read_events(filename)
+        self._mask = np.full(len(self), True)
         self._index = 0
+        
+    @property
+    def filename(self):
+        return self._filename
+    
+    def mask_energy(self, emin: float, emax: float) -> None:
+        self._mask = np.logical_and(emin < self._energy, self._energy < emax)
+        
+    def unmask(self):
+        self._mask = np.full(len(self), True)
         
     def __iter__(self):
         return self
@@ -47,25 +58,6 @@ class DataReader:
         self._index += 1
         return result
     
-    def _set_energy(self, v):
-        self._energy = v
-        
-    def _set_zenith(self, v):
-        self._zenith = v
-        
-    def _set_azimuth(self, v):
-        self._azimuth = v
-        
-    def _set_direction(self, v):
-        self._direction = v
-        
-    def _set_time(self, v):
-        self._time = v
-
-    @property
-    def filename(self):
-        return self._filename
-
     def __len__(self):
         return len(self._events)
 
@@ -82,7 +74,22 @@ class DataReader:
         if getattr(self, f"_{key}") is None:
             getattr(self, f"_set_{key}")(np.array([getattr(e, key) for e in self._events]))
             
-        return getattr(self, f"_{key}")
+        return getattr(self, f"_{key}")[self._mask]
+    
+    def _set_energy(self, v):
+        self._energy = v
+        
+    def _set_zenith(self, v):
+        self._zenith = v
+        
+    def _set_azimuth(self, v):
+        self._azimuth = v
+        
+    def _set_direction(self, v):
+        self._direction = v
+        
+    def _set_time(self, v):
+        self._time = v
 
 def read_events(fname: str) -> DataReader:
     a = ak.from_parquet(fname)

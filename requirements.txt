@@ -4,3 +4,4 @@ healpy
 matplotlib
 numpy
 tqdm
+plotly
