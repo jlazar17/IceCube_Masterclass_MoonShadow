@@ -4,6 +4,8 @@ import plotly.graph_objs as go
 import numpy as np
 
 # utility functions: 
+from ipywidgets import interact, interactive, FloatSlider, Layout
+from IPython.display import display
 
 # assumes theta, phi in degrees.
 def unitsphere_to_cart(theta, phi):
@@ -102,6 +104,12 @@ def get_layout():
     )
     return layout
 
+zenith = FloatSlider(min=0, max=3.14, step=0.01, value=0, description='zenith',
+                     layout=Layout(width='75%'))
+azimuth = FloatSlider(min=-3.14, max=3.14, step=0.01, value=0, description='azimuth',
+                     layout=Layout(width='75%'))
+
+
 def plot_direction_from_earth(lat=0.0, long=-90.0, azi=0.0, zen=0.0):
 
     earth = get_earth_object()
@@ -137,4 +145,15 @@ def plot_direction_from_earth(lat=0.0, long=-90.0, azi=0.0, zen=0.0):
 
     plot_data=[earth, observer, arrow_line, arrow_head]
     fig = go.Figure(data=plot_data, layout=layout)
-    return fig
+    display(fig)
+    # return fig
+
+
+zenith_ = FloatSlider(min=0, max=190, step=1.0, value=0, description='zenith',
+                     layout=Layout(width='75%'))
+azimuth_ = FloatSlider(min=0, max=360, step=1.0, value=0, description='azimuth',
+                     layout=Layout(width='75%'))
+
+def interactive_earth_direction():
+    f = lambda azi, zen: plot_direction_from_earth(lat=-90.0, long=-90)
+    interact(f, azi=azimuth_, zen=zenith_, continuous_update=True)

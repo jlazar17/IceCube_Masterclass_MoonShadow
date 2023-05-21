@@ -42,6 +42,8 @@ class DataReader:
         return self._filename
     
     def mask_energy(self, emin: float, emax: float) -> None:
+        if self._energy is None:
+            self._set_energy(np.array([e.energy for e in self._events]))
         self._mask = np.logical_and(emin < self._energy, self._energy < emax)
         
     def unmask(self):
