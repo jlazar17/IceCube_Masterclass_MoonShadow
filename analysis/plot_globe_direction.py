@@ -155,5 +155,9 @@ azimuth_ = FloatSlider(min=0, max=360, step=1.0, value=0, description='azimuth',
                      layout=Layout(width='75%'))
 
 def interactive_earth_direction():
-    f = lambda azi, zen: plot_direction_from_earth(lat=-90.0, long=-90)
-    interact(f, azi=azimuth_, zen=zenith_, continuous_update=True)
+    zenith = FloatSlider(min=0, max=190, step=1.0, value=0, description='zenith',
+                     layout=Layout(width='75%'))
+    azimuth = FloatSlider(min=0, max=360, step=1.0, value=0, description='azimuth',
+                     layout=Layout(width='75%'))
+    f = lambda azi, zen: plot_direction_from_earth(lat=-90.0, long=-90, azi=azi, zen=zen)
+    interact(f, azi=azimuth, zen=zenith, continuous_update=True)
