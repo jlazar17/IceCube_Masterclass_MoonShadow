@@ -90,7 +90,7 @@ def reco_game(events):
                      layout=Layout(width='75%'))
     event_id = Dropdown(value='1', options=[str(x+1) for x in range(10)], description='event_id', disabled=False)
     submit_button = Button(description='Submit')
-    g = lambda button: reco_results(events, button)
+    g = lambda button: reco_results(events, button, event_id, zenith, azimuth)
     submit_button.on_click(g)
     # submit_button.on_click(reco_results)
     f = lambda x, y, z: intermediate_plot_fn(events, x, y, z)
