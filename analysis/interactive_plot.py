@@ -65,13 +65,13 @@ def generate_directional_vector(zenith, azimuth, initial_pos, color='black', nam
     dir_y = np.sin(azimuth) * np.sin(zenith)
     dir_z = np.cos(zenith)
 
-    start_x = (initial_pos[0]) - (dir_x * 5e3)
-    start_y = (initial_pos[1]) - (dir_y * 5e3)
-    start_z = (initial_pos[2]) - (dir_z * 5e3)
+    start_x = (initial_pos[0]) - (dir_x * 1500)
+    start_y = (initial_pos[1]) - (dir_y * 1500)
+    start_z = (initial_pos[2]) - (dir_z * 1500)
 
-    end_x = (dir_x * 5e3) + (initial_pos[0])
-    end_y = (dir_y * 5e3) + (initial_pos[1])
-    end_z = (dir_z * 5e3) + (initial_pos[2])
+    end_x = (dir_x * 1500) + (initial_pos[0])
+    end_y = (dir_y * 1500) + (initial_pos[1])
+    end_z = (dir_z * 1500) + (initial_pos[2])
 
     true_line = np.array([[start_x, start_y, start_z],
                           [end_x, end_y, end_z]])
@@ -92,7 +92,7 @@ def generate_directional_vector(zenith, azimuth, initial_pos, color='black', nam
     dir_vec = np.array([dir_x, dir_y, dir_z])
 
     # Define the number of arrows to add along the line
-    num_arrows = int(100)
+    num_arrows = int(15)
 
     # Create a list of positions to place the arrows
     arrow_pos = np.linspace(true_line[0], true_line[1], num_arrows+2)[1:-1]
@@ -109,7 +109,7 @@ def generate_directional_vector(zenith, azimuth, initial_pos, color='black', nam
         v=arrow_dir[:,1],
         w=arrow_dir[:,2],
         anchor='center',
-        colorscale='Greys', showscale=False, sizemode='absolute', sizeref=80
+        colorscale='Greys', showscale=False, sizemode='absolute', sizeref=40
     )
 
     return true_dir, arrows_trace
