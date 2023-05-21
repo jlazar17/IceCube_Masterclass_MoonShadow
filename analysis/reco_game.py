@@ -44,7 +44,7 @@ def calculate_angular_difference(zenith1, azimuth1, zenith2, azimuth2):
 from ipywidgets import interact, interactive, FloatSlider, Dropdown, Button, Layout
 from plotly.subplots import make_subplots
 
-event_id = Dropdown(value='1', options=[str(x+1) for x in range(10)], description='event_id', disabled=False)
+
 
 def intermediate_plot_fn(events, x, y, z):
     ed = TRACK_EVENT_DICT
@@ -53,10 +53,7 @@ def intermediate_plot_fn(events, x, y, z):
     fig = plot_interactive_event(events._photon_info[ed[x]], y, z, field='mc_truth_initial', show_truth=False)
     display(fig)
 
-zenith = FloatSlider(min=0, max=3.14, step=0.01, value=0, description='zenith',
-                     layout=Layout(width='75%'))
-azimuth = FloatSlider(min=-3.14, max=3.14, step=0.01, value=0, description='azimuth',
-                     layout=Layout(width='75%'))
+
 
 def return_to_game(button):
     clear_output()
@@ -87,10 +84,15 @@ def reco_results(events, button):
     display(return_button)
 
 def reco_game(events):
+    zenith = FloatSlider(min=0, max=3.14, step=0.01, value=0, description='zenith',
+                     layout=Layout(width='75%'))
+    azimuth = FloatSlider(min=-3.14, max=3.14, step=0.01, value=0, description='azimuth',
+                     layout=Layout(width='75%'))
+    event_id = Dropdown(value='1', options=[str(x+1) for x in range(10)], description='event_id', disabled=False)
     submit_button = Button(description='Submit')
     g = lambda button: reco_results(events, button)
     submit_button.on_click(g)
     # submit_button.on_click(reco_results)
-    f = lambda x, y, z: intermediate_plot_fn(events, x, y, y)
+    f = lambda x, y, z: intermediate_plot_fn(events, x, y, z)
     interact(f, x=event_id, y=zenith, z=azimuth, continuous_update=False)
     display(submit_button)
