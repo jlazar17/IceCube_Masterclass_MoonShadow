@@ -3,8 +3,8 @@ import numpy as np
 from analysis.interactive_plot import plot_interactive_event
 
 
-# from google.colab import output
-# output.enable_custom_widget_manager()
+from google.colab import output
+output.enable_custom_widget_manager()
 
 from IPython.display import display, clear_output
 
@@ -53,17 +53,16 @@ def intermediate_plot_fn(events, x, y, z):
     fig = plot_interactive_event(events._photon_info[ed[x]], y, z, field='mc_truth_initial', show_truth=False)
     display(fig)
 
-
-
-def return_to_game(button):
+def return_to_game(button, event_id, zenith, azimuth, events):
     clear_output()
     submit_button = Button(description='Submit')
     submit_button.on_click(reco_results)
-    interact(intermediate_plot_fn, x=event_id, y=zenith, z=azimuth, continuous_update=False)
+    f = lambda x,y,z: intermediate_plot_fn(events, x, y, z)
+    interact(f, x=event_id, y=zenith, z=azimuth, continuous_update=False)
     display(submit_button)
 
-def reco_results(events, button):
-    global event_id, zenith, azimuth
+def reco_results(events, button, event_id, zenith, azimuth):
+    # global event_id, zenith, azimuth
     x = event_id.value
     y = zenith.value
     z = azimuth.value
@@ -80,7 +79,8 @@ def reco_results(events, button):
     print('Your estimate was ' + str(ad) + ' degrees off the true direction.')
     button.close()
     return_button = Button(description='Return')
-    return_button.on_click(return_to_game)
+    f = lambda button: return_to_game(button, event_id, zenith, azimuth, events)
+    return_button.on_click(f)
     display(return_button)
 
 def reco_game(events):
