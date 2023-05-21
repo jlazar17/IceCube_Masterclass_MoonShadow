@@ -56,7 +56,8 @@ def intermediate_plot_fn(events, x, y, z):
 def return_to_game(button, event_id, zenith, azimuth, events):
     clear_output()
     submit_button = Button(description='Submit')
-    submit_button.on_click(reco_results)
+    g = lambda button: reco_results(events, button, event_id, zenith, azimuth)
+    submit_button.on_click(g)
     f = lambda x,y,z: intermediate_plot_fn(events, x, y, z)
     interact(f, x=event_id, y=zenith, z=azimuth, continuous_update=False)
     display(submit_button)
@@ -90,7 +91,7 @@ def reco_game(events):
                      layout=Layout(width='75%'))
     event_id = Dropdown(value='1', options=[str(x+1) for x in range(10)], description='event_id', disabled=False)
     submit_button = Button(description='Submit')
-    g = lambda button: reco_results(events, button)
+    g = lambda button: reco_results(events, button, event_id, zenith, azimuth)
     submit_button.on_click(g)
     # submit_button.on_click(reco_results)
     f = lambda x, y, z: intermediate_plot_fn(events, x, y, z)
